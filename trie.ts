@@ -31,7 +31,7 @@ export class Trie {
       lastNode = lastNode.children[char];
     }
     const list = lastNode.isEnd ? [lastWord] : [];
-    return this.getResults(lastNode, list, 0, lastWord, true);
+    return this.getResults(lastNode, [], 0, lastWord, true);
   }
   getResults(
     node: Node,
@@ -43,9 +43,8 @@ export class Trie {
     if (!isStarting) {
       word += node.char;
     }
-    if (!isStarting && node.isEnd) {
+    if (node.isEnd) {
       list.push(word);
-      return list;
     }
     if (limit >= depthLimit) return list;
     limit++;
@@ -60,6 +59,13 @@ const trie = new Trie();
 
 trie.insert("roystang");
 trie.insert("roystang123");
+trie.insert("roystang123456");
 trie.insert("roystangxxx1233353");
+trie.insert("roystangxxx123335323423453534534534534");
 trie.insert("roy123");
+trie.insert("johnadams123");
+
 console.log(trie.search("roystang"));
+
+console.log(trie.search("roy"));
+console.log(trie.search("joh"));
